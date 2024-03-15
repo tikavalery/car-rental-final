@@ -1,0 +1,128 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: azure;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.spinner{
+  position:absolute;
+  top:50%;
+  left: 50%;
+  z-index: 1;
+}
+
+h1{
+  font-size:30px;
+  font-weight:bold;
+  color:orangered;
+
+}
+p{margin:5px !important;
+font-weight:bold;
+color:orangered;}
+
+.bs1 {
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.header{
+  padding: 20px;
+
+}
+.content{
+  min-height:90vh;
+
+}
+.carimg{
+  height:180px;
+  width: 80%;
+  border-radius:5px;
+  transform:translateY(-50px)
+}
+
+.car-content{
+  transform:translateY(-200px);
+  opacity:0;
+  transition:0.3s;
+}
+
+.btn1{
+  box-shadow: none !important;
+  background-color: white !important;
+  color:orangered !important;
+  border:1
+  px solid orangered !important;
+  padding: 5px 10px !important;
+  outline:none !important;
+}
+.bt1:focus{
+  border:none;
+}
+.button{
+  padding:3px 10px !important;
+}
+.login{
+  background-color:black;
+  min-height:100vh;
+  padding-top: 100px;
+}
+
+.login label , .login h1{
+  color:white !important;
+  opacity:0.6;
+}
+
+.login-form{
+  background: color #1f1f1f;
+}
+
+.login-form input{
+  background-color:#333333 !important;
+  border:none !important;
+  color:white;
+  opacity:0.5;
+
+}
+
+.login-hero-image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+}
+
+.login-logo{
+  position:absolute;
+  left: 0;
+  right:0;
+  top:65%;
+  bottom:50%;
+  transform:translateY(-50%, -50%);
+  font-size:45px;
+  opacity:.5 !important;
+
+
+}
+
+.login a{
+  color:white !important;
+  opacity:0.5;
+}
+
+.header .ant-btn{
+  box-shadow: none !important;
+  background-color: white !important;
+  color:orangered !important;
+  border:1px solid orangered !important;
+  padding:5px 15px !important;
+  outline:none !important;
+}
