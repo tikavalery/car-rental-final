@@ -12,8 +12,7 @@ app.use("/api/cars/", require("./routes/carsRoute"));
 app.use("/api/bookings/", require("./routes/bookingsRoute"));
 app.use("/api/users/", require("./routes/usersRoute"));
 
-// tikavalery
-// IMLY1oe3L2BKti5m
+
 
 // mongoose.connect(MONGOURI);
 // mongoose.connection.on("connected",()=>{

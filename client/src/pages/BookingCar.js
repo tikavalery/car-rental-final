@@ -23,7 +23,10 @@ function BookingCar(){
         }
  
     },[cars])
-   
+    
+   function selectTimeSlots(values){
+ console.log(values)
+   }
     return(
         <DefaultLayout>
           {loading && (<Spinner/>)}
@@ -41,7 +44,7 @@ function BookingCar(){
                             <p>Max Persons : {car.capacity}</p>
                          </div>
                          <Divider type ="horizontal" className="divider-style"> Selected time slots </Divider>
-                         <RangePicker showTime = {{format:"HH:mm"}} format="MMM DDD YYYY HH:mm"/>
+                         <RangePicker showTime = {{format:"HH:mm"}} format="MMM DDD YYYY HH:mm" onChange={selectTimeSlots}/>
                     </Col>
           </Row>
         </DefaultLayout>
