@@ -1,4 +1,4 @@
-import {Route,Routes, BrowserRouter} from "react-router-dom";
+import {Route,Routes, BrowserRouter,Navigate,Outlet} from "react-router-dom";
 import './App.css';
 import Home from "./pages/Home";
 import BookingCar from "./pages/BookingCar";
@@ -10,10 +10,15 @@ function App() {
     <div className="App">
     <BrowserRouter>
       <Routes>
-        <Route path = "/" exact element ={<Home/>}/>
+        <Route element = {<ProtectedRoute/>}>
+                     <Route path = "/" exact element ={<Home/>}/>
+                      <Route path = "/booking/:carid" exact element = {<BookingCar/>}/>
+                   
+        </Route>
+     
         <Route path = "/login" exact element = {<Login/>} />
-        <Route path = "/bookingcar" exact element = {<BookingCar/>}/>
-        <Route path = "/register" exact element = {<Register/>} />
+         <Route path = "/register" exact element = {<Register/>} />
+        
       </Routes>
     
     
@@ -23,3 +28,12 @@ function App() {
 }
 
 export default App;
+
+export function ProtectedRoute(props){
+  if(localStorage.getItem("user"))
+  {
+    return<Outlet {...props}/>
+  }else{
+    return<Navigate to = "/login" />
+  }
+}

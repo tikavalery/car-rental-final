@@ -42,11 +42,26 @@ color:orangered;}
   min-height:90vh;
 
 }
+.car{
+  border-radius:5px;
+  margin-top:100px;
+  height:160px;
+  transition:0.3s;
+}
+
+.car:hover{
+  height:220px;
+}
+
+.car:hover > .car-content{
+  opacity:1;
+  transform:translateY(-30px);
+}
 .carimg{
   height:180px;
-  width: 80%;
+  width: 90%;
   border-radius:5px;
-  transform:translateY(-50px)
+  transform:translateY(-60px)
 }
 
 .car-content{
@@ -125,4 +140,14 @@ color:orangered;}
   border:1px solid orangered !important;
   padding:5px 15px !important;
   outline:none !important;
+}
+
+.carimg2{
+  height:400px;
+  border-radius:10px;
+ width:auto; 
+}
+
+.divider-style::after, .divider-style::before{
+  background-color:black;
 }

@@ -1,37 +1,30 @@
 import React from "react";
 import {Row, Col, Form, Input} from "antd";
 import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {userLogin} from "../redux/actions/userActions"
+import {useDispatch,useSelector} from "react-redux";
+import {userLogin} from "../redux/actions/userActions";
+import Spinner from "../components/Spinner";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
 
-//  const userLogin=(reqObj) => async dispatch=>{
-//     dispatch({
-//         type:"LOADING", payload:true
-//     })
-//     try{
-//         const response = await axios.post("/api/users/login", reqObj)
-//         localStorage.setItem('user', JSON.stringify(response.data))
-//         message.success("Login success")
-//         dispatch({type:"LOADING",payload:false})
-//     } catch(error){
-//         console.log(error)
-//         message.error("something went wrong")
-//         dispatch({type:"LOADING",payload:false})
-//     }
-// }
+
 
 function Login(){
     const dispatch = useDispatch()
+    const {loading} = useSelector(state => state.alertsReducer)
     function onFinish(values){
         dispatch(userLogin(values))
         console.log(values)
     }
     return (
        <div className="login"> 
+          {loading && (<Spinner/>)}
           <Row gutter={16} className="d-flex align-items-center">
             <Col lg={16} >  
            
-                <img className="login-hero-image" src="https://images.unsplash.com/photo-1485291571150-772bcfc10da5?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="login" />
+                <img data-aos = "slide-right" data-aos-duration = "1500" className="login-hero-image" src="https://images.unsplash.com/photo-1485291571150-772bcfc10da5?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="login" />
               <h1 className="login-logo"> Tikka Rentals </h1>
             </Col>
                 <Col lg={8} className="text-left">
