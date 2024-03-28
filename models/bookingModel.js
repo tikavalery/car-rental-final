@@ -1,14 +1,20 @@
-const mongoose = require("mogoose");
-const bookingSchema = new mongoose.Schema({
-    car:{type:mongoose.Schema.Types.ObjectId, ref:"cars"},
+const mongoose = require("mongoose");
+
+const bookingShema = new mongoose.Schema({
+    car:{type:mongoose.Schema.Types.ObjectId,ref:"cars"},
     user:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
-    bookedTimeSlots:[{from:{type:String},to: {type:String}}],
+    bookedTimeSlots:{
+        from:{type:String},
+        to:{type:String}},
     totalHours:{type:Number},
     totalAmount:{type:Number},
-    transanctioId:{type:String},
+    transactionId:{type:String},
     driverRequired:{type:Boolean}
 },
-{timestamps:true})
 
-const bookingModel = mongoose.model("bookings",bookingSchema)
-module.exports = bookingSchema;
+{timestamps:true}
+)
+
+const bookingModel = mongoose.model("bookings",bookingShema);
+
+module.exports = bookingModel;

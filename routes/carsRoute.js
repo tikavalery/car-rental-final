@@ -7,7 +7,7 @@ router.get("/getallcars",async(req,res) =>{
 
     try {
         const cars = await Car.find({ })
-        console.log(cars)
+      
         res.send(cars)
     } catch(error){
         return res.status(400).json(error)

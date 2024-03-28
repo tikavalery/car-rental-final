@@ -6,6 +6,7 @@ import {getAllCars} from '../redux/actions/carsActions';
 import Spinner from "../components/Spinner";
 import {Col,Row,Divider,DatePicker,Checkbox} from "antd";
 import moment from "moment";
+import {bookCar} from "../redux/actions/bookActions";
 
 
 const {RangePicker} = DatePicker;
@@ -16,8 +17,8 @@ function BookingCar(){
     const {loading } = useSelector(state => state.alertsReducer);
     const [car, setCar] = useState({});
     const dispatch = useDispatch();
-    const [from, setFrom] = useState("vali")
-    const [to,setTo] = useState("sheshelololo");
+    const [from, setFrom] = useState("")
+    const [to,setTo] = useState("");
     const [totalHours, setTotalHours] = useState(0);
     const [driver,setDriver] = useState(false);
     const [totalAmount,setTotalAmount] = useState(0)
@@ -31,17 +32,37 @@ function BookingCar(){
  
     },[cars, carid, dispatch])
 
-    useEffect(() =>{
-        // alert("I was affected")
-           setTotalAmount((totalHours * car.rentPerHour) )
-          if(driver){
-            setTotalAmount(totalAmount + (30 * totalHours))
-          }
-    },[driver, totalHours, car.rentPerHour, totalAmount])
+    // useEffect(() =>{
+       
+    //        setTotalAmount((totalHours * car.rentPerHour) )
+       
+         
+    // },[totalHours, car.rentPerHour, totalAmount])
+
+    function checkPrice(){
+        setTotalAmount((totalHours * car.rentPerHour) )
+    }
+
+    function checkDriver(){
+        // alert("i am in check driver")
+        setTotalAmount(totalAmount + (30 * totalHours))
+        // if(driver){
+
+            // setTotalAmount(totalAmount + (30 * totalHours))
+           
+        //   }
+    }
+
+    function checkDriverReduce(){
+        setTotalAmount(totalAmount - (30* totalHours))
+    }
     
    function selectTimeSlots(values){
     setFrom(values[0].$d)
     setTo(values[1].$d)
+    console.log(to)
+    console.log(from)
+    
     //    console.log(typeof moment(values[0].$d).format("DD MM YYYY hh:mm:ss", true))
     //    console.log(typeof moment(values[1].$d).format("DD MM YYYY hh:mm:ss", true))
        const startTime = new Date(values[0].$d)
@@ -52,6 +73,7 @@ function BookingCar(){
        console.log(endTimeSeconds)
        const hours = Math.abs(endTimeSeconds - startTimeSeconds) / 36e5;
        setTotalHours(hours)
+      
 
 
    }
@@ -68,6 +90,33 @@ function BookingCar(){
             to,
         }
     }
+
+    // car:{type:mongoose.Schema.Types.ObjectId,ref:"cars"},
+    // user:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
+    // bookedTimeSlots:[{from:{type:String},to:{type:String}}],
+    // totalHours:{type:Number},
+
+    // totalAmount:{type:Number},
+    // transactionId:{type:String}
+    //driverRequired:{type:Boolean}
+
+    // export const bookCar = (reqObj) => async dispatch =>{
+
+    //     dispatch({
+    //         type:"LOADING",payload:true
+    //     })
+    //     try{
+    //         await axios.post("/api/bookings/bookcar")
+    //         dispatch({type:"LOADING",payload:false})
+    //         message.success("Your car booked successfully")
+    //     }catch(error){
+    //         console.log(error)
+    //         dispatch({type:"LOADING",payload:false})
+    //         message.error("Something went wrong please try later")
+    //     }
+    // }
+
+    dispatch(bookCar(reqObj))
    }
     return(
         <DefaultLayout>
@@ -87,11 +136,19 @@ function BookingCar(){
                          </div>
                          <Divider type ="horizontal" className="divider-style"> Selected time slots </Divider>
                          <RangePicker showTime = {{format:"HH:mm"}} format="MMM DDD YYYY HH:mm" onChange={selectTimeSlots}/>
+                         <button className="btn1" onClick={checkPrice}>Get Final Price</button>
                          <div>
                          <p>total Hours is : <b>{totalHours}</b>  </p>
                          <p>Rent Per hour : <b>{car.rentPerHour}</b> </p>
                          <Checkbox onChange={(e) =>{
-                        e.target.checked ? setDriver(true) : setDriver(false)
+                            if(e.target.checked){
+                                // setDriver(true)
+                                // console.log(driver)
+                                checkDriver()
+                                
+                            }else if(!e.target.checked){
+                                checkDriverReduce()
+                            }
                          }
                          }>Driver Required</Checkbox>
                          <h3>Total Amount : {totalAmount}</h3>
