@@ -23,49 +23,57 @@ function Home(){
      },[cars])
 
     function setFilter(values){
-        let temp = []
-        let selectedFrom  = moment(values[0].$d)
-        let selectedTo = moment(values[1].$d)
-        let now = moment(new Date())
-        // console.log(selectedFrom);
-        // console.log(selectedTo);
-        // console.log(now)
-        // console.log(moment(selectedTo).isBetween(selectedFrom, now))
+
+        let carsToDisplay = []
+        let carsNotToDisplay = []
+        let selectedFrom  = moment(values[0].$d,"MMM DD YYYY HH:mm")
+        let selectedTo = moment(values[1].$d,"MMM DD YYYY HH:mm")
 
 
-                        for(let car of totalCars){
+
+                        for(let car of cars){
                           
                             if(car.bookedTimeSlots.length ===0 ){
-                                temp.push(car)
-                                // console.log(temp)
+                                carsToDisplay.push(car)
+                            
                             } else{
                                 for(let booking of car.bookedTimeSlots){
                                   
+                                    // console.log(selectedFrom.isBetween(moment(booking.from),moment(booking.to)),selectedFrom,booking.from,booking.to)
+                                    // console.log(selectedTo.isBetween(moment(booking.from),moment(booking.to)))
+                                    // console.log(moment(booking.from).isBetween(selectedFrom,selectedTo))
+                                    // console.log(moment(booking.to).isBetween(selectedFrom,selectedTo))
                                     
-                                  if(selectedFrom.isBetween(moment(booking.from),moment(booking.to)) ||
-                                  selectedTo.isBetween(moment(booking.from),moment(booking.to))||
-                                  moment(booking.from).isBetween(selectedFrom,selectedTo)||
-                                  moment(booking.to).isBetween(selectedFrom,selectedTo)) {
-                                        // console.log(booking)
+                               if(selectedFrom.isBetween(moment(booking.from),moment(booking.to)) || selectedTo.isBetween(moment(booking.from),moment(booking.to)) || 
+                                  moment(booking.from).isBetween(selectedFrom,selectedTo)|| moment(booking.to).isBetween(selectedFrom,selectedTo)
+                                ) {
+                                       carsNotToDisplay.push(car)
+                                   
                                   }else{
-                                    temp.push(car)
-                                    // console.log(temp)
+                                    
+                                 carsToDisplay.push(car)
+                                    
+                                 
                                   }
 
 
                                 }
+                                console.log("//////////////////cars not to display/////////////////////////")
+                                console.log(carsNotToDisplay)
+                                console.log("////////////////////car display////////////////////////////")
+                                console.log(carsToDisplay)
                             }
               
                  }
 
-     setTotalCars(temp)
-     console.log(totalCars)
+     setTotalCars(carsToDisplay)
+    //  console.log(totalCars)
     }
     return (
        <DefaultLayout>
             <Row className="mt-3" justify="center">
                     <Col lg = {20} sm = {24} className="d-flex justify-content-left">
-                        <RangePicker onChange={setFilter} showTime = {{format:"HH:mm"}} format="MMM DDD YYYY HH:mm" />
+                        <RangePicker onChange={setFilter} showTime = {{format:"HH:mm"}} format="MMM DD YYYY HH:mm" />
                     </Col>
             </Row>
                    {loading === true && (<Spinner/>)}

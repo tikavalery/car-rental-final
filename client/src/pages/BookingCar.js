@@ -135,7 +135,7 @@ function BookingCar(){
                             <p>Max Persons : {car.capacity}</p>
                          </div>
                          <Divider type ="horizontal" className="divider-style"> Selected time slots </Divider>
-                         <RangePicker showTime = {{format:"HH:mm"}} format="MMM DDD YYYY HH:mm" onChange={selectTimeSlots}/>
+                         <RangePicker showTime = {{format:"HH:mm"}} format="MMM DD YYYY HH:mm" onChange={selectTimeSlots}/>
                          <button className="btn1" onClick={checkPrice}>Get Final Price</button>
                          <div>
                          <p>total Hours is : <b>{totalHours}</b>  </p>
