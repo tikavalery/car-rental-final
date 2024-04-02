@@ -25,46 +25,34 @@ function Home(){
     function setFilter(values){
 
         let carsToDisplay = []
-        let carsNotToDisplay = []
         let selectedFrom  = moment(values[0].$d,"MMM DD YYYY HH:mm")
         let selectedTo = moment(values[1].$d,"MMM DD YYYY HH:mm")
 
 
 
-                        for(let car of cars){
-                          
-                            if(car.bookedTimeSlots.length ===0 ){
+                for (let car of cars ){
+                    if(car.bookedTimeSlots.length === 0 ){
                                 carsToDisplay.push(car)
-                            
-                            } else{
-                                for(let booking of car.bookedTimeSlots){
-                                  
-                                    // console.log(selectedFrom.isBetween(moment(booking.from),moment(booking.to)),selectedFrom,booking.from,booking.to)
-                                    // console.log(selectedTo.isBetween(moment(booking.from),moment(booking.to)))
-                                    // console.log(moment(booking.from).isBetween(selectedFrom,selectedTo))
-                                    // console.log(moment(booking.to).isBetween(selectedFrom,selectedTo))
-                                    
-                               if(selectedFrom.isBetween(moment(booking.from),moment(booking.to)) || selectedTo.isBetween(moment(booking.from),moment(booking.to)) || 
-                                  moment(booking.from).isBetween(selectedFrom,selectedTo)|| moment(booking.to).isBetween(selectedFrom,selectedTo)
-                                ) {
-                                       carsNotToDisplay.push(car)
-                                   
-                                  }else{
-                                    
-                                 carsToDisplay.push(car)
-                                    
-                                 
-                                  }
-
-
-                                }
-                                console.log("//////////////////cars not to display/////////////////////////")
-                                console.log(carsNotToDisplay)
-                                console.log("////////////////////car display////////////////////////////")
-                                console.log(carsToDisplay)
-                            }
-              
-                 }
+                                } else{
+                                     let checkNotAvialability =[]
+                                        let checkAvialability = []
+                                    for (let booking of car.bookedTimeSlots){
+                                       
+                                        if(selectedFrom.isBetween(moment(booking.from),moment(booking.to)) || selectedTo.isBetween(moment(booking.from),moment(booking.to)) || 
+                  moment(booking.from).isBetween(selectedFrom,selectedTo)|| moment(booking.to).isBetween(selectedFrom,selectedTo))
+                        {
+                            checkNotAvialability.push("No") 
+                        } else{
+                            checkAvialability.push("yes")    
+                        }
+                                    }
+                        if(checkAvialability.length === car.bookedTimeSlots.length){
+                    
+                                  carsToDisplay.push(car)
+                        }
+                              
+                }}
+        
 
      setTotalCars(carsToDisplay)
     //  console.log(totalCars)

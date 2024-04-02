@@ -4,7 +4,7 @@ import DefaultLayout from "../components/DefaultLayout";
 import { useParams } from 'react-router-dom';
 import {getAllCars} from '../redux/actions/carsActions';
 import Spinner from "../components/Spinner";
-import {Col,Row,Divider,DatePicker,Checkbox} from "antd";
+import {Col,Row,Divider,DatePicker,Checkbox,Modal} from "antd";
 import moment from "moment";
 import {bookCar} from "../redux/actions/bookActions";
 
@@ -21,7 +21,8 @@ function BookingCar(){
     const [to,setTo] = useState("");
     const [totalHours, setTotalHours] = useState(0);
     const [driver,setDriver] = useState(false);
-    const [totalAmount,setTotalAmount] = useState(0)
+    const [totalAmount,setTotalAmount] = useState(0);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() =>{
         if(cars.length ===0 ){
@@ -63,8 +64,7 @@ function BookingCar(){
     console.log(to)
     console.log(from)
     
-    //    console.log(typeof moment(values[0].$d).format("DD MM YYYY hh:mm:ss", true))
-    //    console.log(typeof moment(values[1].$d).format("DD MM YYYY hh:mm:ss", true))
+
        const startTime = new Date(values[0].$d)
        const startTimeSeconds  = startTime.getTime();
        const endTime = new Date(values[1].$d)
@@ -91,30 +91,7 @@ function BookingCar(){
         }
     }
 
-    // car:{type:mongoose.Schema.Types.ObjectId,ref:"cars"},
-    // user:{type:mongoose.Schema.Types.ObjectId,ref:"users"},
-    // bookedTimeSlots:[{from:{type:String},to:{type:String}}],
-    // totalHours:{type:Number},
 
-    // totalAmount:{type:Number},
-    // transactionId:{type:String}
-    //driverRequired:{type:Boolean}
-
-    // export const bookCar = (reqObj) => async dispatch =>{
-
-    //     dispatch({
-    //         type:"LOADING",payload:true
-    //     })
-    //     try{
-    //         await axios.post("/api/bookings/bookcar")
-    //         dispatch({type:"LOADING",payload:false})
-    //         message.success("Your car booked successfully")
-    //     }catch(error){
-    //         console.log(error)
-    //         dispatch({type:"LOADING",payload:false})
-    //         message.error("Something went wrong please try later")
-    //     }
-    // }
 
     dispatch(bookCar(reqObj))
    }
@@ -134,11 +111,15 @@ function BookingCar(){
                             <p>Feul: {car.feulType}</p>
                             <p>Max Persons : {car.capacity}</p>
                          </div>
-                         <Divider type ="horizontal" className="divider-style"> Selected time slots </Divider>
+                         <Divider type ="horizontal" className="divider-style"> Selected time slots </Divider> 
                          <RangePicker showTime = {{format:"HH:mm"}} format="MMM DD YYYY HH:mm" onChange={selectTimeSlots}/>
-                         <button className="btn1" onClick={checkPrice}>Get Final Price</button>
+                         <br/>
+                         <button className="btn1" onClick={() => {setShowModal(true)}}>See Booked Slots</button>
+                         {from && to && (<button className="btn1" onClick={checkPrice}>Calculate Total Price</button>)}
+                        
+                         
                          <div>
-                         <p>total Hours is : <b>{totalHours}</b>  </p>
+                         <p>Total Hours is : <b>{totalHours}</b>  </p>
                          <p>Rent Per hour : <b>{car.rentPerHour}</b> </p>
                          <Checkbox onChange={(e) =>{
                             if(e.target.checked){
@@ -157,6 +138,13 @@ function BookingCar(){
                         
                     </Col>
           </Row>
+          <Modal visible = {showModal} closable= {false} footer = {false} title = "Booked time slots">
+                                {car && (<div className="p-2">
+                                    {/* {car.bookedTimeSlots.map(slot =>{
+                                        return <button className="btn1 mt-2">{slot?.from} - {slot?.to}</button>
+                                    })} */}
+                                </div>)}
+          </Modal>
         </DefaultLayout>
     )
 }
