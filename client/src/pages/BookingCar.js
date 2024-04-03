@@ -7,6 +7,7 @@ import Spinner from "../components/Spinner";
 import {Col,Row,Divider,DatePicker,Checkbox,Modal} from "antd";
 import moment from "moment";
 import {bookCar} from "../redux/actions/bookActions";
+import StripeCheckout from 'react-stripe-checkout';
 
 
 const {RangePicker} = DatePicker;
@@ -78,8 +79,12 @@ function BookingCar(){
 
    }
 
-   function booknow(){
+  
+   function onToken(token){
+    console.log(token)
+
     const reqObj = {
+        token,
         user : JSON.parse(localStorage.getItem("user"))._id,
         car: car._id,
         totalHours,
@@ -94,6 +99,8 @@ function BookingCar(){
 
 
     dispatch(bookCar(reqObj))
+
+
    }
     return(
         <DefaultLayout>
@@ -133,16 +140,28 @@ function BookingCar(){
                          }
                          }>Driver Required</Checkbox>
                          <h3>Total Amount : {totalAmount}</h3>
-                         <button className="btn1" onClick={booknow}>Book Now</button>
+                         <StripeCheckout
+                         shippingAddress
+                                 token={onToken}
+                                 amount={totalAmount * 100}
+                               stripeKey="pk_test_51NovQALXB4fdf1TyZFjziDXOeHxMl1kR6X5B9zepKUtC21Oo9y1XTZ6mSsG54S9rPWkI2TViOnL8f193p5Bc677b00WYRIQ3Bd"
+                                    ><button className="btn1" >Book Now</button></StripeCheckout>
+                     
                          </div>
                         
                     </Col>
           </Row>
           <Modal visible = {showModal} closable= {false} footer = {false} title = "Booked time slots">
                                 {car && (<div className="p-2">
-                                    {/* {car.bookedTimeSlots.map(slot =>{
+                            
+                                    {car?.bookedTimeSlots?.map(slot =>{
                                         return <button className="btn1 mt-2">{slot?.from} - {slot?.to}</button>
-                                    })} */}
+                                    })}
+                                    <div className="text-right">
+                                        <button className="btn1 mt-5" onClick={()=>{setShowModal(false)}} >
+                                               X
+                                        </button>
+                                    </div>
                                 </div>)}
           </Modal>
         </DefaultLayout>
