@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import BookingCar from "./pages/BookingCar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import UserBookings from "./pages/UserBookings";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route element = {<ProtectedRoute/>}>
                      <Route path = "/" exact element ={<Home/>}/>
                       <Route path = "/booking/:carid" exact element = {<BookingCar/>}/>
+                      <Route path = "/userbooking" exaxt element = {<UserBookings/>}/>
                    
         </Route>
      

@@ -24,37 +24,15 @@ console.log("i am in book car route")
                 unit_amount:req.body.totalAmount,
               },
               quantity:100
-                                                                            // price:token.id,
-                                                                            // quantity: req.body.totalAmount * 100
-                                                                            
-                                                                          //     email:token.email,
-                                                                          // source:token.id,
-                                                                          //  amount:req.body.totalAmount * 100,
-                                                                          // customer:customer.id,
-                                                                          // receipt_email: token.email
+
             }],
             mode: 'payment',
             success_url: 'https://appwexdigital.com/',
             cancel_url: 'https://appwexdigital.com/',
           });
-          // console.log("before session")
-          // console.log(session)
-          // console.log("after session")
-        // const customer = await stripe.customers.create({
-        //     email:token.email,
-        //     source:token.id
-        // })
 
-        // const payment = await stripe.charges.create({
-        //     amount:req.body.totalAmount * 100,
-        //     customer:customer.id,
-        //     receipt_email: token.email
-        // },{
-        //     idempotencyKey:uuidv4()
-        // })
       if(session){
-        // console.log(session)
-        console.log(" I am in payment")
+ 
         req.body.transactionId = session.id
         const newbooking = new Booking(req.body)
         await newbooking.save()
@@ -70,6 +48,17 @@ console.log("i am in book car route")
         // return res.status(400).json(error);
         console.log(error)
     }
+})
+
+router.get("/getallbookings",async (req,res) =>{
+  console.log("i am in all all bookings")
+  try{
+    console.log("i am in all try try bookins")
+         const booking = await Booking.find({})
+         res.send(booking)
+  } catch (error){
+           return res.status(400).json(error);
+  }
 })
 
 module.exports = router;
