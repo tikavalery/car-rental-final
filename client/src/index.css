@@ -151,3 +151,16 @@ color:orangered;}
 .divider-style::after, .divider-style::before{
   background-color:black;
 }
+
+svg{
+  height:30px !important;
+  width:30px !important;
+}
+
+.mr-4{
+  margin-right: 20px;
+}
+
+.mr-3{
+  margin-right:15px
+}

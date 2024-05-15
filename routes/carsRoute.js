@@ -14,4 +14,18 @@ router.get("/getallcars",async(req,res) =>{
     }
 })
 
+router.post("/addcar", async(req,res) =>{
+    console.log("I am in addcar back end")
+    // console.log(req.body)
+    try{
+        const newcar = new Car(req.body);
+        console.log(newcar)
+        await newcar.save()
+        res.send("Car added successfully")
+
+    } catch(error){
+        return res.status(400).json(error)
+    }
+})
+
 module.exports = router;

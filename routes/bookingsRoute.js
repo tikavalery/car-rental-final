@@ -51,10 +51,10 @@ console.log("i am in book car route")
 })
 
 router.get("/getallbookings",async (req,res) =>{
-  console.log("i am in all all bookings")
+
   try{
-    console.log("i am in all try try bookins")
-         const booking = await Booking.find({})
+
+         const booking = await Booking.find().populate("car")
          res.send(booking)
   } catch (error){
            return res.status(400).json(error);
