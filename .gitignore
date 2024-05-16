@@ -1,3 +1,5 @@
 *.js
+/node_modules
 db.js
+key.js
 # !Folder2/file.fs
