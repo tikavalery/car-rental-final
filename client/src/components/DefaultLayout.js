@@ -23,8 +23,8 @@ const items = [
     {
       key: '3',
       label: (
-        <a  href="/">
-         Profile
+        <a  href="/admin">
+         Admin
         </a>
       ),
     },

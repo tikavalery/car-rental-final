@@ -20,7 +20,7 @@ function App() {
                       <Route path = "/userbooking" exaxt element = {<UserBookings/>}/>
                       <Route path = "/addcar" exact element = {<AddCar/>}/>
                       <Route path = "/admin" exact element = {<AdminHome/>}/>
-                      <Route path = "/editcar/:carid" exaxt element = {<EditCar/>}/>
+                      <Route path = "/editcar/:carid" exact element = {<EditCar/>}/>
                    
         </Route>
      

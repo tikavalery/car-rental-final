@@ -28,4 +28,30 @@ router.post("/addcar", async(req,res) =>{
     }
 })
 
+router.post("/editcar", async(req,res) =>{
+    try{
+      const car = await Car.findOne({_id: req.body._id})
+      car.name = req.body.name
+      car.image = req.body.image
+      car.feulType  = req.body.feulType
+      car.rentPerHour = req.body.rentPerHour
+      car.capacity = req.body.capacity
+
+      await car.save()
+      res.send("Car edited successfully")
+    }catch{
+
+    }
+})
+
+router.post("/deletecar", async(req,res) =>{
+    try{
+        await Car.findOneAndDelete({_id:req.body.carid});
+        res.send("Car deleted Successfully");
+    }catch(error){
+        return res.status(400).json(error)
+    }
+})
+
+
 module.exports = router;
